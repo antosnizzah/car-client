@@ -21,7 +21,7 @@ const LoginForm = () => {
             const userData = await login(data).unwrap();
             console.log(userData);
             dispatch(setCredentials(userData));
-            navigate('/dashboard'); // Redirect to dashboard after successful login
+            navigate('/user-dashboard'); // Redirect to dashboard after successful login
         } catch (err) {
             console.error('Failed to log in: ', err);
 
