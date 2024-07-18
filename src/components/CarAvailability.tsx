@@ -2,6 +2,35 @@ import { useFetchBookingsQuery } from '../apiservices/bookingApi';
 import CarCard from './AvailabeCars';
 import '../index.css';
 
+
+export interface TBooking {
+  booking_id: number;
+  location_id: number;
+  booking_date: string;
+  return_date: string;
+  total_cost: string;
+  status: string;
+  payment_id: string;
+  user: {
+    full_name: string;
+    contact_phone: number;
+    email: string;
+    address: string;
+  };
+  vehicle: {
+    rental_rate: number;
+    rented_out: boolean;
+    vehicleSpecification: {
+      manufacturer: string;
+      model: string;
+      year: number;
+      engine_capacity: string;
+      fuel_type: string;
+      transmission: string;
+      image: string;
+    };
+  };
+}
 const AvailableCars = () => {
   const { data: bookingsData, error, isLoading: isFetching } = useFetchBookingsQuery();
 
@@ -14,7 +43,7 @@ const AvailableCars = () => {
         <p className="text-red-500">Error fetching cars</p>
       ) : (
         <div className="car-list flex flex-wrap -m-4">
-          {bookingsData && bookingsData.map((booking: any) => (
+          {bookingsData && bookingsData.map((booking: TBooking) => (
             <CarCard
               key={booking.booking_id}
               manufacturer={booking.vehicle.vehicleSpecification.manufacturer}

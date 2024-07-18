@@ -66,10 +66,10 @@ const VehicleList = () => {
               <td>{vehicle.model}</td>
               <td>{vehicle.year}</td>
               <td>
-                <button className="btn btn-outline btn-primary btn-sm mr-2">
+                <button className="btn btn-outline btn-primary btn-sm mr-2" title="Edit Vehicle">
                   <EditIcon />
                 </button>
-                <button className="btn btn-outline btn-error btn-sm">
+                <button className="btn btn-outline btn-error btn-sm" title="Delete Vehicle">
                   <TrashIcon />
                 </button>
               </td>

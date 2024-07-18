@@ -1,5 +1,3 @@
-import Header from './components/Header';
-import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Error from './pages/Error';
@@ -15,7 +13,6 @@ import BookingList from './components/BookingList';
 import PaymentList from './components/PaymentList';
 import AdminLogin from './components/AdminLogin';
 import Services from './pages/services';
-import Booking from './components/BookingList';
 import AvailableCars from './components/CarAvailability';
 import CarList from '../src/components/carlist';
 

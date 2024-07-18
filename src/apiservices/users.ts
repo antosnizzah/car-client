@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface TUser {
-  id: number;
-  fullname: string;
+  user_id: number;
+  full_name: string;
   email: string;
-  phone: string;
+  contact_phone: string;
   address: string;
 }
 
@@ -26,7 +26,7 @@ export const usersApi = createApi({
         body: newUser,
       }),
     }),
-    updateUser: builder.mutation<TUser, Partial<TUser>>({
+    updateUser: builder.mutation<TUser, { id: number; } & Partial<TUser>>({
       query: ({ id, ...patch }) => ({
         url: `users/${id}`,
         method: 'PATCH',
@@ -42,4 +42,4 @@ export const usersApi = createApi({
   }),
 });
 
-export const { useGetUsersQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation }:any = usersApi;
+export const { useGetUsersQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation }= usersApi;

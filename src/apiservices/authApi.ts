@@ -35,4 +35,4 @@ export const authApi = createApi({
     }),
 });
 
-export const { useRegisterMutation, useLoginMutation } :any= authApi;
+export const { useRegisterMutation, useLoginMutation } = authApi;

@@ -10,6 +10,9 @@ export interface Car {
   bookingQuantity: number;
 }
 
+interface AuthState {
+}
+
 interface BookingProps {
   booking: {
     isLoading: boolean;
@@ -17,9 +20,11 @@ interface BookingProps {
     bookedCars: Car[];
     totalAmount: number;
   };
+  auth: AuthState;
   onRemoveFromBooking: (car: Car) => void;
   onCheckout: () => void;
 }
+
 
 const BookingComponent: React.FC<BookingProps> = ({
   booking,

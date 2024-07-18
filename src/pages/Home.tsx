@@ -9,7 +9,7 @@ const Home = () => {
     return (
       <>
       <Header />
-      <div className="hero min-h-screen" style={{ backgroundImage: `url('https://i.pinimg.com/564x/8b/14/48/8b1448c345668165afa67d6a1955b2f1.jpg')` }}>
+      <div className="hero min-h-screen hero-background">
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">

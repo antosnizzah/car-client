@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import anto from '../assets/anto.png';
-import House from 'lucide-react';
 
 const Header = () => {
   return (

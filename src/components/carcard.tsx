@@ -2,7 +2,7 @@
 import React from 'react';
 import { useCreateBookingMutation } from '../apiservices/car';
 
-interface Car {
+export interface Car {
     manufacturer: string;
     model: string;
     year: number;
@@ -36,7 +36,6 @@ interface Car {
         alert('Booking successful!');
       } catch (error) {
         console.error('Failed to book the car:', error);
-        console.error('Error Details:', error.data);
         alert('Booking failed!');
       }
     };

@@ -12,14 +12,14 @@ const SignInForm = () => {
     address: ""
   });
 
-  const [registerUser, { isLoading, isSuccess, isError, error }] = useRegisterMutation();
+  const [registerUser, { isLoading, isSuccess, isError  }] = useRegisterMutation();
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await registerUser(formData).unwrap();
@@ -66,7 +66,7 @@ const SignInForm = () => {
                 <button type="submit" className="btn btn-primary" disabled={isLoading}>
                   Register
                 </button>
-                {isError && <p className="text-red-500 mt-2">{error.data?.message || "Failed to register"}</p>}
+                {isError && <p className="text-red-500 mt-2">{  "Failed to register"}</p>}
                 {isSuccess && <p className="text-green-500 mt-2">User registered successfully!</p>}
               </div>
             </form>

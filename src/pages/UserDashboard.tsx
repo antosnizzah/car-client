@@ -1,6 +1,6 @@
 
 import Sidebar from '../components/Sidebar';
-import { HomeIcon, CarIcon, UserIcon, CalendarIcon, BarChartIcon, LogOut } from 'lucide-react';
+import { HomeIcon, CarIcon, LogOut } from 'lucide-react';
 
 const UserDashboard = () => {
   const userLinks = [

@@ -1,6 +1,6 @@
-import React from 'react';
 
-const LiveCarStatus: React.FC = () => {
+
+const LiveCarStatus  = () => {
   return (
     <div className="bg-slate-500 p-4 shadow rounded-lg">
       <h3 className="text-xl font-semibold mb-4">Live Car Status</h3>

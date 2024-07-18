@@ -12,7 +12,7 @@ import { toast, Toaster } from 'sonner';
 import VehicleCard from '../components/vehiclecard'; // Import the new component
 
 const VehicleList = () => {
-  const { data: vehicleData, error, isLoading, isError } = useGetVehiclesQuery();
+  const { data:  error, isLoading, isError } = useGetVehiclesQuery();
   const { data: vehicleSpecsData } = useGetVehiclesSpecsQuery();
   const [deleteVehicle] = useDeleteVehicleMutation();
   const [addVehicle] = useAddVehicleMutation();
@@ -46,7 +46,7 @@ const VehicleList = () => {
 
   const handleUpdate = async (vehicle_id: number) => {
     if (editingVehicle) {
-      const { vehicle_id: _, ...rest } = editingVehicle;
+      const { ...rest } = editingVehicle;
       await updateVehicle({ vehicle_id, ...rest });
       setEditingVehicle(null);
       toast.success('Vehicle updated successfully');

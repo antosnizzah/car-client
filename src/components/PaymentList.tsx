@@ -50,7 +50,7 @@ const PaymentList = () => {
               <td>{payment.amount}</td>
               <td>{payment.date}</td>
               <td>
-                <button className="btn btn-outline btn-primary btn-sm mr-2">
+                <button className="btn btn-outline btn-primary btn-sm mr-2" title="Edit Payment">
                   <EditIcon />
                 </button>
                 <button className="btn btn-outline btn-error btn-sm">

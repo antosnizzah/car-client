@@ -1,8 +1,7 @@
-import React from 'react';
 
 const Contact = () => {
   return (
-    <div className="container mx-auto p-4 flex flex-col lg:flex-row items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: 'url(path-to-your-background-image.png)' }}>
+    <div className="container mx-auto p-4 flex flex-col lg:flex-row items-center justify-center h-screen bg-cover bg-center" >
       <div className="bg-blue-400 text-white p-8 rounded-lg shadow-lg w-full lg:w-1/3 mb-8 lg:mb-0 lg:mr-8">
         <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
         <p className="mb-4">23, KEnya<br />75012 Kutus</p>

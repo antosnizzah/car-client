@@ -14,10 +14,10 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle, onEdit, onDelete }) 
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-bold">{vehicle.manufacturer} {vehicle.model}</h3>
         <div className="flex gap-2">
-          <button className="btn btn-sm btn-outline btn-info" onClick={onEdit}>
+          <button className="btn btn-sm btn-outline btn-info" onClick={onEdit} title="Edit Vehicle">
             <EditIcon />
           </button>
-          <button className="btn btn-sm btn-outline btn-warning" onClick={onDelete}>
+          <button className="btn btn-sm btn-outline btn-warning" onClick={onDelete} title="Delete Vehicle">
             <TrashIcon />
           </button>
         </div>

@@ -13,11 +13,8 @@ interface User {
 }
 
 const UserTable = () => {
-  const { data: usersData, error, isLoading, isError } = useGetUsersQuery({
-    pollingInterval: 3000,
-     skipPollingIfUnfocused: true,
-  });
-  const [deleteUser, { isLoading: isDeleting, data: deleteMsg }] = useDeleteUserMutation();
+  const { data: usersData, error, isLoading, isError } = useGetUsersQuery();
+  const [deleteUser, { data: deleteMsg }] = useDeleteUserMutation();
   const [addUser] = useAddUserMutation();
   const [updateUser] = useUpdateUserMutation();
   const [newUser, setNewUser] = useState<Partial<User>>({});
@@ -38,7 +35,7 @@ const UserTable = () => {
   };
 
   const handleUpdate = async (user_id: number) => {
-    await updateUser({ user_id, ...editingUser });
+    await updateUser({ id: user_id, ...editingUser });
     setEditingUser(null);
   };
 
@@ -80,8 +77,8 @@ const UserTable = () => {
                     <td>{user.contact_phone}</td>
                     <td>{user.address}</td>
                     <td className='flex gap-2'>
-                      <button className='btn btn-sm btn-outline btn-info' onClick={() => setEditingUser(user)}><EditIcon/></button>
-                      <button className='btn btn-sm btn-outline btn-warning' onClick={() => handleDelete(user.user_id)}><TrashIcon/></button>
+                      <button type="button" className='btn btn-sm btn-outline btn-info' onClick={() => setEditingUser(user)} title="Edit User"><EditIcon/></button>
+                      <button type="button" className='btn btn-sm btn-outline btn-warning' onClick={() => handleDelete(user.user_id)} title="Delete User"><TrashIcon/></button>
                     </td>
                   </tr>
                 ))
