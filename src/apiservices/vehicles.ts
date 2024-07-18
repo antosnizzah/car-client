@@ -9,6 +9,7 @@ export type TVehicle={
   fuel_type: string;
   transmission: string;
   color: string;
+  message: string;
 }
 
 export interface DeleteResponse {

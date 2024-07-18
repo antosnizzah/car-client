@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import {
-  useGetVehiclesQuery,
   useGetVehiclesSpecsQuery,
   useDeleteVehicleMutation,
   useAddVehicleMutation,
@@ -12,8 +11,7 @@ import { toast, Toaster } from 'sonner';
 import VehicleCard from '../components/vehiclecard'; // Import the new component
 
 const VehicleList = () => {
-  const { data:  error, isLoading, isError } = useGetVehiclesQuery();
-  const { data: vehicleSpecsData } = useGetVehiclesSpecsQuery();
+  const { data: vehicleSpecsData, error, isLoading, isError } = useGetVehiclesSpecsQuery();
   const [deleteVehicle] = useDeleteVehicleMutation();
   const [addVehicle] = useAddVehicleMutation();
   const [updateVehicle] = useUpdateVehicleMutation();
@@ -44,9 +42,9 @@ const VehicleList = () => {
     }
   };
 
-  const handleUpdate = async (vehicle_id: number) => {
+  const handleUpdate = async () => {
     if (editingVehicle) {
-      const { ...rest } = editingVehicle;
+      const { vehicle_id, ...rest } = editingVehicle;
       await updateVehicle({ vehicle_id, ...rest });
       setEditingVehicle(null);
       toast.success('Vehicle updated successfully');
@@ -124,18 +122,18 @@ const VehicleList = () => {
           {isLoading ? (
             <p>Loading...</p>
           ) : isError ? (
-            <p>Error: {error?.message}</p>
+            <p>Error: {error && 'data' in error ? (error.data as { message: string }).message : 'An error occurred'}</p>
           ) : (
             vehicleSpecsData &&
             vehicleSpecsData
               .filter((vehicle: TVehicle) => {
-                if (searchTerm === '') return vehicle;
+                if (searchTerm === '') return true;
                 return (
                   vehicle.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()) ||
                   vehicle.model.toLowerCase().includes(searchTerm.toLowerCase())
                 );
               })
-              .map((vehicle) => (
+              .map((vehicle: TVehicle) => (
                 <VehicleCard
                   key={vehicle.vehicle_id}
                   vehicle={vehicle}
@@ -200,7 +198,7 @@ const VehicleList = () => {
                 className="input input-bordered mb-2 w-full"
               />
               <div className="flex justify-end gap-2 mt-4">
-                <button className="btn btn-primary" onClick={() => handleUpdate(editingVehicle.vehicle_id)}>
+                <button className="btn btn-primary" onClick={handleUpdate}>
                   Save
                 </button>
                 <button className="btn" onClick={() => setEditingVehicle(null)}>
