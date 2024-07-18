@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+  
+  .animate-shake {
+    animation: shake 0.5s;
+  }
+  .app {
+    text-align: center;
+  }
+  
+  .available-cars,
+  .booking-list,
+  .booking-summary {
+    margin: 20px;
+  }
+  
+  .car-item,
+  .booking-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    margin: 5px;
+  }
+  

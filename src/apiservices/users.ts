@@ -1,0 +1,45 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export interface TUser {
+  id: number;
+  fullname: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
+export interface DeleteResponse {
+  msg: string;
+}
+
+export const usersApi = createApi({
+  reducerPath: 'usersApi',
+  baseQuery: fetchBaseQuery({ baseUrl: ' https://car-api-80da.onrender.com/' }),
+  endpoints: (builder) => ({
+    getUsers: builder.query<TUser[], void>({
+      query: () => 'users',
+    }),
+    addUser: builder.mutation<TUser, Partial<TUser>>({
+      query: (newUser) => ({
+        url: 'users',
+        method: 'POST',
+        body: newUser,
+      }),
+    }),
+    updateUser: builder.mutation<TUser, Partial<TUser>>({
+      query: ({ id, ...patch }) => ({
+        url: `users/${id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+    }),
+    deleteUser: builder.mutation<DeleteResponse, number>({
+      query: (id) => ({
+        url: `users/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+  }),
+});
+
+export const { useGetUsersQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation }:any = usersApi;
