@@ -42,14 +42,14 @@ const BookingContainer = () => {
 
   useEffect(() => {
     if (bookingsData) {
-      const carBookings = bookingsData.map((booking: TBooking) => ({
-        _id: booking.booking_id,
-        name: `${booking.vehicle.vehicleSpecification.manufacturer} ${booking.vehicle.vehicleSpecification.model}`,
-        desc: `${booking.vehicle.vehicleSpecification.year} ${booking.vehicle.vehicleSpecification.fuel_type}`,
-        price: booking.vehicle.rental_rate,
-        image: { url: booking.vehicle.vehicleSpecification.image },
-        bookingQuantity: 1,
-      }));
+      const carBookings = Array.isArray(bookingsData) ? bookingsData.map((booking: TBooking) => ({
+          _id: booking.booking_id.toString(),
+          name: `${booking.vehicle.vehicleSpecification.manufacturer} ${booking.vehicle.vehicleSpecification.model}`,
+          desc: `${booking.vehicle.vehicleSpecification.year} ${booking.vehicle.vehicleSpecification.fuel_type}`,
+          price: booking.vehicle.rental_rate,
+          image: { url: booking.vehicle.vehicleSpecification.image },
+          bookingQuantity: 1,
+      })) : [];
       dispatch(setBookings(carBookings));
     }
     dispatch(getTotals());

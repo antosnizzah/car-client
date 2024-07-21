@@ -43,7 +43,7 @@ const AvailableCars = () => {
         <p className="text-red-500">Error fetching cars</p>
       ) : (
         <div className="car-list flex flex-wrap -m-4">
-          {bookingsData && bookingsData.map((booking: TBooking) => (
+          {Array.isArray(bookingsData) && bookingsData.map((booking: TBooking) => (
             <CarCard
               key={booking.booking_id}
               manufacturer={booking.vehicle.vehicleSpecification.manufacturer}

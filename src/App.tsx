@@ -15,6 +15,7 @@ import AdminLogin from './components/AdminLogin';
 import Services from './pages/services';
 import AvailableCars from './components/CarAvailability';
 import CarList from '../src/components/carlist';
+import UserTable from './components/UserList';
 
 
 
@@ -115,6 +116,11 @@ const App = () => {
     {
       path: 'services',
       element: <Services />,
+    },
+    {
+      path: 'users',
+      element: <UserTable />,
+      errorElement: <Error />,
     },
     {
       path: 'availablecars',

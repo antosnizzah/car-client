@@ -22,11 +22,11 @@ const AdminSidebar = () => {
                 strokeLinejoin="round"
                 strokeWidth={2}
                 d="M4 6h16M4 12h16m-7 6h7"
-              />
+              ></path>
             </svg>
           </summary>
           <nav className="absolute right-0 bg-gray-800 shadow-lg p-4 mt-2 rounded-box w-64">
-            <Link to="/dashboard" className="block py-2 px-8 bg-gray-700 text-white mb-2 rounded-md">
+            <Link to="/admin" className="block py-2 px-8 bg-gray-700 text-white mb-2 rounded-md">
               Dashboard
             </Link>
             <Link to="/profile" className="block py-2 px-8 text-white hover:bg-gray-700 mb-2 rounded-md">
@@ -45,20 +45,20 @@ const AdminSidebar = () => {
         </details>
       </div>
       <nav className="hidden lg:block mt-10">
-        <Link to="/dashboard" className="flex items-center py-2 px-8 bg-gray-700 text-white mb-2 rounded-md">
+        <Link to="/admin" className="flex items-center py-2 px-8 bg-gray-700 text-white mb-2 rounded-md">
           Dashboard
         </Link>
-        <Link to="/profile" className="flex items-center py-2 px-8 text-white hover:bg-gray-700 mb-2 rounded-md">
-          Profile
+        <Link to="/users" className="flex items-center py-2 px-8 text-white hover:bg-gray-700 mb-2 rounded-md">
+          manage users
         </Link>
         <Link to="/vehicles" className="flex items-center py-2 px-8 text-white hover:bg-gray-700 mb-2 rounded-md">
-          Vehicles
+          manage Vehicles
         </Link>
         <Link to="/bookings" className="flex items-center py-2 px-8 text-white hover:bg-gray-700 mb-2 rounded-md">
-          Bookings
+          manage fleet
         </Link>
         <Link to="/payments" className="flex items-center py-2 px-8 text-white hover:bg-gray-700 mb-2 rounded-md">
-          Payments
+          manage Payments
         </Link>
       </nav>
     </div>

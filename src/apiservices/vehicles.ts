@@ -19,7 +19,7 @@ export interface DeleteResponse {
 export const vehiclesApi = createApi({
   reducerPath: 'vehiclesApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://car-api-80da.onrender.com/',
+    baseUrl: 'http://localhost:8000/',
   }),
   endpoints: (builder) => ({
     getVehicles: builder.query<TVehicle[], void>({
