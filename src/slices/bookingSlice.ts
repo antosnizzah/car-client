@@ -9,6 +9,7 @@ interface Car {
 }
 
 export interface BookingState {
+  booking_id:number;
   bookedCars: Car[];
   totalAmount: number;
   isLoading: boolean;
@@ -16,6 +17,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
+  booking_id: 0,  // replace with actual booking id from server response
   bookedCars: [],
   totalAmount: 0,
   isLoading: false,

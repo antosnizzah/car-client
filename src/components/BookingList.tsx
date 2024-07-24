@@ -44,12 +44,7 @@ const BookingContainer = () => {
     }
   };
 
-  const handleCheckout = () => {
-    const bookingId = booking.bookedCars[0]._id;  // example logic
-    const amount = booking.totalAmount;  // example logic
-    makePayment(bookingId, amount);
-    toast.success('Checkout process started.');
-  };
+ 
 
   // Type guard to check if the error is of type FetchBaseQueryError
   const isFetchBaseQueryError = (error: unknown): error is { status: number; data: unknown } => {
@@ -60,6 +55,7 @@ const BookingContainer = () => {
   const isSerializedError = (error: unknown): error is { message: string } => {
     return typeof error === 'object' && error !== null && 'message' in error;
   };
+ 
 
   return (
     <div className="p-4 bg-gray-900 min-h-screen">
@@ -99,29 +95,11 @@ const BookingContainer = () => {
         booking={{ ...booking, isLoading: isFetching }}
         auth={auth}
         onRemoveFromBooking={handleRemoveFromBooking}
-        onCheckout={handleCheckout}
       />
       <ToastContainer />
     </div>
   );
 };
 
-const makePayment = async (bookingId: number, amount: number) => {
-  console.log(bookingId, amount);
-  try {
-    const response = await fetch('https://car-api-80da.onrender.com/checkout-session', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ bookingId, amount }),
-    });
-
-    const { checkoutUrl } = await response.json();
-    window.location.href = checkoutUrl;
-  } catch (error) {
-    console.error('Error creating checkout session:', error);
-  }
-};
 
 export default BookingContainer;

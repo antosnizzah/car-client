@@ -131,16 +131,16 @@ export interface BookingProps {
     error: string | null;
     bookedCars: Car[];
     totalAmount: number;
+    booking_id:number;
   };
   auth: AuthState;
   onRemoveFromBooking: (car: Car) => void;
-  onCheckout: () => void;
+
 }
 
 const BookingComponent: React.FC<BookingProps> = ({
   booking,
   onRemoveFromBooking,
-  onCheckout,
 }) => {
   // Notify user about errors or successful actions
   const notifyError = (message: string) => toast.error(message);
@@ -151,6 +151,24 @@ const BookingComponent: React.FC<BookingProps> = ({
       notifyError('Error fetching bookings');
     }
   }, [booking.error]);
+  const makePayment = async (bookingId: number, amount: number) => {
+    console.log(bookingId, amount);
+    try {
+      const response = await fetch('https://car-api-80da.onrender.com/checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ bookingId, amount }),
+      });
+  
+      const { checkoutUrl } = await response.json();
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+    }
+  };
+  
 
   return (
     <>
@@ -199,7 +217,7 @@ const BookingComponent: React.FC<BookingProps> = ({
             <div className="mt-6 flex justify-between items-center text-white">
               <span className="text-xl font-semibold">Total: ${booking.totalAmount}</span>
               <button
-                onClick={onCheckout}
+                onClick={() => makePayment(booking.booking_id, booking.totalAmount)}
                 className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center"
               >
                 Checkout
