@@ -6,6 +6,7 @@ export interface TUser {
   email: string;
   contact_phone: string;
   address: string;
+  user_id:number;
 }
 
 export interface DeleteResponse {

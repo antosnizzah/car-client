@@ -32,7 +32,7 @@ const CarCard = () => {
         <div className="p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300" key={car.vehicle_id}>
           <img src={car.image} alt={`${car.manufacturer} ${car.model}`} className="w-full h-48 object-cover rounded-md mb-4" />
           <h3 className="text-lg font-semibold">{`${car.manufacturer} ${car.model} (${car.year})`}</h3>
-          <p className="text-gray-600">{`$${car.amount}/day`}</p>
+          <p className="text-gray-600">{`$${car.total_cost}/day`}</p>
           <div className="mt-4 flex justify-between">
             <Link to={`/vehicle/${car.vehicle_specification_id}`} className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700">details</Link>
             <Link to={`/vehicle/${car.vehicle_specification_id}/booking-details`} className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-700">rent now</Link>

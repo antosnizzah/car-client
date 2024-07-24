@@ -34,7 +34,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ amount }) => {
     }
 
     const paymentData: CreatePaymentRequest = {
-      user_id: user.id,
+      user_id: Number(user.id),
       booking_id: Number(bookingId),
       payment_amount: amount,
       amount: amount, // Ensure this
