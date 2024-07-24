@@ -3,6 +3,8 @@ import { useLoginMutation } from '../apiservices/authApi';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../apiservices/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
+import Footer from './Footer';
+import Header from './Header';
 
 interface LoginFormInputs {
   username: string;
@@ -58,6 +60,8 @@ const LoginForm = () => {
   };
 
   return (
+    <> 
+    <Header />
     <div className="flex items-center justify-center min-h-screen bg-slate-900">
       <div className="w-full max-w-sm bg-slate-600 p-6 rounded-lg shadow-md">
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,6 +110,8 @@ const LoginForm = () => {
         </p>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 

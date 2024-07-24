@@ -91,7 +91,7 @@ const BookingComponent: React.FC<BookingProps> = ({
           <div className="mt-6 flex justify-between items-center">
             <div className="flex items-center">
               <span className="text-xl font-semibold text-white mr-4">Total: ${booking.totalAmount}</span>
-              <Link to="/payments/:bookingId" className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center">
+              <Link to="/payments/54" className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center">
                 <button onClick={onCheckout} className="bg-blue-500 text-white py-2 px-4 rounded-lg">
                   Checkout
                 </button>

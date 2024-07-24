@@ -11,7 +11,7 @@ export type Tfleet = {
 
 export const fleetApi = createApi({
   reducerPath: 'fleetApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }), // Replace with your backend URL
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }), // Replace with your backend URL
   endpoints: (builder) => ({
     fetchFleets: builder.query<Tfleet[], void>({
       query: () => '/fleetmanagement',

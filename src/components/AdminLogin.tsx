@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { setCredentials } from '../apiservices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import Footer from './Footer';
+import Header from './Header';
 
 interface LoginFormInputs {
     username: string;
@@ -61,6 +63,8 @@ const AdminLogin = () => {
     };
 
     return (
+        <>
+        <Header />
         <div className="flex items-center justify-center min-h-screen bg-slate-900">
             <div className="w-full max-w-sm bg-slate-600 p-6 rounded-lg shadow-md">
                 <h2 className="text-red-600 text-center text-2xl mb-6">Login</h2>
@@ -84,6 +88,8 @@ const AdminLogin = () => {
                 </form>
             </div>
         </div>
+        <Footer />
+        </>
     );
 };
 

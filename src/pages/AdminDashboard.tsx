@@ -6,6 +6,7 @@ import Metrics from './metrics';
 import { addNotification, deleteNotification, Notification } from '../action';
 import { useAppDispatch, useAppSelector } from '../store/usersAPI.reducer';
 import { selectNotifications } from '../selectornotifiction'; // Ensure this path is correct
+import Footer from '../components/Footer';
 
 const AdminDashboard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -54,6 +55,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
+    <>
     <div className="flex h-screen overflow-hidden">
       <AdminSidebar />
       <div className="flex-grow p-6 overflow-y-auto bg-gray-100 ml-64">
@@ -80,6 +82,8 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 

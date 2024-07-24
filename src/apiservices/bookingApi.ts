@@ -48,7 +48,7 @@ export interface Tlocation {
 }
 export const bookingApi = createApi({
   reducerPath: 'bookingApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }), // Replace with your backend URL
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }), // Replace with your backend URL
   endpoints: (builder) => ({
     fetchBookings: builder.query<Booking[], void>({
       query: () => '/bookings',

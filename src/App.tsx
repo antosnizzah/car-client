@@ -45,7 +45,7 @@ const App = () => {
       errorElement: <Error />,
     },
     {
-      path: 'payments/:bookingId', // Added the bookingId parameter
+      path: 'payments/54', // Added the bookingId parameter
       element: <BookingPage />,
       errorElement: <Error />,
     },
