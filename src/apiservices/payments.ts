@@ -27,7 +27,7 @@ export interface CreatePaymentResponse {
 
 export const paymentsApi = createApi({
   reducerPath: 'paymentsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }),
   endpoints: (builder) => ({
     createPayment: builder.mutation<CreatePaymentResponse, CreatePaymentRequest>({
       query: (payment) => ({

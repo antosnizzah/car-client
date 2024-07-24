@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import 'tailwindcss/tailwind.css';
 import { useGetUsersQuery, useDeleteUserMutation, useAddUserMutation, useUpdateUserMutation } from '../apiservices/users';
-import { Toaster, toast } from 'sonner';
-import { EditIcon, TrashIcon } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { EditIcon, TrashIcon, Loader2 } from 'lucide-react';
+import NavigationButtons from "./backbutton";
 
 interface User {
   user_id: number;
@@ -21,14 +22,23 @@ const UserTable = () => {
   const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const handleDelete = async (user_id: number) => {
-    await deleteUser(user_id);
-    toast.success('User deleted successfully');
+    try {
+      await deleteUser(user_id).unwrap();
+      toast.success('User deleted successfully');
+    } catch (err) {
+      toast.error('Failed to delete user');
+    }
   };
 
   const handleAdd = async () => {
     if (newUser.full_name && newUser.email && newUser.contact_phone && newUser.address) {
-      await addUser(newUser as User);
-      setNewUser({});
+      try {
+        await addUser(newUser as User).unwrap();
+        setNewUser({});
+        toast.success('User added successfully');
+      } catch (err) {
+        toast.error('Failed to add user');
+      }
     } else {
       toast.error('All fields are required');
     }
@@ -36,8 +46,13 @@ const UserTable = () => {
 
   const handleUpdate = async (user_id: number) => {
     if (editingUser) {
-      await updateUser({ id: user_id, ...editingUser });
-      setEditingUser(null);
+      try {
+        await updateUser({ id: user_id, ...editingUser }).unwrap();
+        setEditingUser(null);
+        toast.success('User updated successfully');
+      } catch (err) {
+        toast.error('Failed to update user');
+      }
     }
   };
 
@@ -55,74 +70,79 @@ const UserTable = () => {
 
   return (
     <>
-      <Toaster position="top-center" toastOptions={{ classNames: { error: 'bg-red-400', success: 'text-green-400', warning: 'text-yellow-400', info: 'bg-blue-400' } }} />
-      <div className="overflow-x-auto text-base-content bg-gray-800 rounded-lg p-4">
-        <h1 className="text-xl my-4 text-white">Users Data</h1>
+      <NavigationButtons />
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={true} pauseOnHover={true} draggable={true} />
+      <div className="overflow-x-auto bg-gray-800 rounded-lg p-4 text-gray-200">
+        <h1 className="text-2xl font-semibold mb-4">Users Data</h1>
 
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col gap-2">
           <input
             type="text"
             placeholder="Full Name"
             value={newUser.full_name || ''}
             onChange={(e) => setNewUser({ ...newUser, full_name: e.target.value })}
-            className="input input-bordered mr-2"
+            className="input input-bordered bg-gray-700 text-white"
           />
           <input
             type="text"
             placeholder="Email"
             value={newUser.email || ''}
             onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
-            className="input input-bordered mr-2"
+            className="input input-bordered bg-gray-700 text-white"
           />
           <input
             type="text"
             placeholder="Phone"
             value={newUser.contact_phone || ''}
             onChange={(e) => setNewUser({ ...newUser, contact_phone: e.target.value })}
-            className="input input-bordered mr-2"
+            className="input input-bordered bg-gray-700 text-white"
           />
           <input
             type="text"
             placeholder="Address"
             value={newUser.address || ''}
             onChange={(e) => setNewUser({ ...newUser, address: e.target.value })}
-            className="input input-bordered mr-2"
+            className="input input-bordered bg-gray-700 text-white"
           />
           <button className="btn btn-primary" onClick={handleAdd}>
             Add User
           </button>
         </div>
 
-        <table className="table table-xs">
+        <table className="min-w-full bg-gray-700 text-gray-200 rounded-lg">
           <thead>
             <tr>
-              <th>user_id</th>
-              <th>full_name</th>
-              <th>email</th>
-              <th>contact_phone</th>
-              <th>address</th>
-              <th>Options</th>
+              <th className="p-2">user_id</th>
+              <th className="p-2">full_name</th>
+              <th className="p-2">email</th>
+              <th className="p-2">contact_phone</th>
+              <th className="p-2">address</th>
+              <th className="p-2">Options</th>
             </tr>
           </thead>
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={6}>Loading...</td>
+                <td colSpan={6} className="p-2 text-center">
+                  <Loader2 className="h-6 w-6 mx-auto animate-spin" />
+                </td>
               </tr>
             ) : isError ? (
               <tr>
-                <td colSpan={6}>Error: {renderErrorMessage(error)}</td>
+                <td colSpan={6} className="p-2 text-center">
+                  Error: {renderErrorMessage(error)}
+                </td>
               </tr>
             ) : (
               usersData &&
-              usersData.map((user, index) => (
-                <tr key={index}>
-                  <th>{user.user_id}</th>
-                  <td>{user.full_name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.contact_phone}</td>
-                  <td>{user.address}</td>
-                  <td className="flex gap-2">
+              usersData.map((user) => (
+                <tr key={user.user_id}>
+                  <td className="p-2">{user.user_id}</td>
+                  <td className="p-2">{user.full_name}</td>
+                  <td className="p-2">{user.email}</td>
+                  <td className="p-2">{user.contact_phone}</td>
+                  <td className="p-2">{user.address}</td>
+                  <td className="p-2 flex gap-2">
                     <button type="button" className="btn btn-sm btn-outline btn-info" onClick={() => setEditingUser(user)} title="Edit User">
                       <EditIcon />
                     </button>
@@ -136,40 +156,42 @@ const UserTable = () => {
           </tbody>
           <tfoot>
             <tr>
-              <td colSpan={6}>{usersData ? `${usersData.length} records` : '0 records'}</td>
+              <td colSpan={6} className="p-2 text-center">
+                {usersData ? `${usersData.length} records` : '0 records'}
+              </td>
             </tr>
           </tfoot>
         </table>
 
         {editingUser && (
-          <div className="modal">
+          <div className="modal modal-open">
             <div className="modal-box">
               <h3 className="font-bold text-lg">Update User</h3>
               <input
                 type="text"
                 placeholder="Full Name"
-                value={editingUser.full_name}
+                value={editingUser.full_name || ''}
                 onChange={(e) => setEditingUser({ ...editingUser, full_name: e.target.value })}
                 className="input input-bordered mb-2"
               />
               <input
                 type="text"
                 placeholder="Email"
-                value={editingUser.email}
+                value={editingUser.email || ''}
                 onChange={(e) => setEditingUser({ ...editingUser, email: e.target.value })}
                 className="input input-bordered mb-2"
               />
               <input
                 type="text"
                 placeholder="Phone"
-                value={editingUser.contact_phone}
+                value={editingUser.contact_phone || ''}
                 onChange={(e) => setEditingUser({ ...editingUser, contact_phone: e.target.value })}
                 className="input input-bordered mb-2"
               />
               <input
                 type="text"
                 placeholder="Address"
-                value={editingUser.address}
+                value={editingUser.address || ''}
                 onChange={(e) => setEditingUser({ ...editingUser, address: e.target.value })}
                 className="input input-bordered mb-2"
               />

@@ -24,7 +24,7 @@ export interface UserDetails {
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }),
   endpoints: (builder) => ({
     getUsers: builder.query<TUser[], void>({
       query: () => 'users',

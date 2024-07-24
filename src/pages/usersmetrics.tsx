@@ -3,6 +3,9 @@ import { Truck, MapPin, Tag, Calendar } from 'lucide-react';
 import 'tailwindcss/tailwind.css';
 import { Pie, Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, BarElement, LineElement, CategoryScale, LinearScale, Tooltip, Legend, PointElement } from 'chart.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ClipLoader } from 'react-spinners';
 
 ChartJS.register(ArcElement, BarElement, LineElement, CategoryScale, LinearScale, Tooltip, Legend, PointElement);
 
@@ -12,8 +15,17 @@ const Metrics = () => {
   const { data: promotions, isLoading: loadingPromotions, isError: errorPromotions } = useGetPromotionsQuery();
   const { data: bookingOffers, isLoading: loadingBookingOffers, isError: errorBookingOffers } = useGetBookingOffersQuery();
 
-  if (loadingCars || loadingLocations || loadingPromotions || loadingBookingOffers) return <p>Loading...</p>;
-  if (errorCars || errorLocations || errorPromotions || errorBookingOffers) return <p>Error loading data</p>;
+  if (loadingCars || loadingLocations || loadingPromotions || loadingBookingOffers) 
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader size={50} color="#60a5fa" />
+      </div>
+    );
+    
+  if (errorCars || errorLocations || errorPromotions || errorBookingOffers) {
+    toast.error("Error loading data");
+    return null;
+  }
 
   const totalCars = cars?.length || 0;
   const totalLocationsBranches = locationsBranches?.length || 0;
@@ -57,6 +69,8 @@ const Metrics = () => {
 
   return (
     <div className="p-4 space-y-4">
+      <ToastContainer />
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="flex items-center space-x-4 bg-white shadow-md rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
           <Truck className="w-8 h-8 text-blue-500" />

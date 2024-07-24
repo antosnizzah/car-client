@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Car {
-  _id: string;
+  _id: number;
   name: string;
   desc: string;
   price: number;

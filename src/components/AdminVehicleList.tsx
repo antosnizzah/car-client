@@ -4,6 +4,7 @@
 import  { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import { EditIcon, TrashIcon } from 'lucide-react';
+import NavigationButtons from './backbutton';
 
 
 interface Vehicle {
@@ -27,6 +28,7 @@ const VehicleList = () => {
 
   return (
     <div className="p-4">
+      <NavigationButtons/>
       <div className="mb-4 flex justify-between items-center">
         <input
           type="text"

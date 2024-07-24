@@ -4,6 +4,7 @@ import { cars } from '../data/cars';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+
 const About = () => {
   const settings = {
     dots: true ,

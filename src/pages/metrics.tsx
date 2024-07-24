@@ -124,18 +124,21 @@
 // export default Metrics;
 
 
-
-
+import React from 'react';
 import { useGetCarsQuery, useGetLocationsBranchesQuery, useGetMaintenanceRecordsQuery, useGetPromotionsQuery, useGetReviewsRatingQuery, useGetBookingOffersQuery } from '../apiservices/car';
 import { useFetchBookingsQuery } from '../apiservices/bookingApi';
 import { useFetchFleetsQuery } from '../apiservices/fleetmanagement';
 import { useGetUsersQuery } from '../apiservices/users';
 import { Truck, Calendar, Users, FileText, MapPin, Wrench, Tag, Star } from 'lucide-react';
-import 'tailwindcss/tailwind.css';
 import { Pie, Bar, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, BarElement, LineElement, CategoryScale, LinearScale, Tooltip, Legend, PointElement } from 'chart.js';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import 'tailwindcss/tailwind.css';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 ChartJS.register(ArcElement, BarElement, LineElement, CategoryScale, LinearScale, Tooltip, Legend, PointElement);
+
 const Metrics = () => {
   const { data: cars, isLoading: loadingCars, isError: errorCars } = useGetCarsQuery();
   const { data: bookings, isLoading: loadingBookings, isError: errorBookings } = useFetchBookingsQuery();
@@ -145,10 +148,21 @@ const Metrics = () => {
   const { data: maintenanceRecords, isLoading: loadingMaintenance, isError: errorMaintenance } = useGetMaintenanceRecordsQuery();
   const { data: promotions, isLoading: loadingPromotions, isError: errorPromotions } = useGetPromotionsQuery();
   const { data: reviews, isLoading: loadingReviews, isError: errorReviews } = useGetReviewsRatingQuery();
-  const { data: bookingOffers, isLoading: loadingBookingOffers, isError: errorBookingOffers } = useGetBookingOffersQuery();
+  const { data:  loadingBookingOffers, isError: errorBookingOffers } = useGetBookingOffersQuery();
 
-  if (loadingCars || loadingBookings || loadingFleets || loadingUsers || loadingLocations || loadingMaintenance  || loadingPromotions || loadingReviews || loadingBookingOffers) return <p>Loading...</p>;
-  if (errorCars || errorBookings || errorFleets || errorUsers || errorLocations || errorMaintenance  || errorPromotions || errorReviews || errorBookingOffers) return <p>Error loading data</p>;
+  React.useEffect(() => {
+    if (errorCars || errorBookings || errorFleets || errorUsers || errorLocations || errorMaintenance || errorPromotions || errorReviews || errorBookingOffers) {
+      toast.error('Error loading data');
+    }
+  }, [errorCars, errorBookings, errorFleets, errorUsers, errorLocations, errorMaintenance, errorPromotions, errorReviews, errorBookingOffers]);
+
+  if (loadingCars || loadingBookings || loadingFleets || loadingUsers || loadingLocations || loadingMaintenance || loadingPromotions || loadingReviews || loadingBookingOffers) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="#4A90E2" />
+      </div>
+    );
+  }
 
   const totalCars = cars?.length || 0;
   const totalBookings = bookings?.length || 0;
@@ -158,7 +172,7 @@ const Metrics = () => {
   const totalMaintenanceRecords = maintenanceRecords?.length || 0;
   const totalPromotions = promotions?.length || 0;
   const totalReviews = reviews?.length || 0;
-  const totalBookingOffers = bookingOffers?.length || 0;
+
   const pieData = {
     labels: ['Cars', 'Bookings', 'Fleets', 'Users'],
     datasets: [
@@ -196,6 +210,7 @@ const Metrics = () => {
 
   return (
     <div className="p-4 space-y-4">
+      <ToastContainer />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="flex items-center space-x-4 bg-white shadow-md rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
           <Truck className="w-8 h-8 text-blue-500" />
@@ -247,8 +262,6 @@ const Metrics = () => {
           </div>
         </div>
 
-       
-
         <div className="flex items-center space-x-4 bg-white shadow-md rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
           <Tag className="w-8 h-8 text-pink-500" />
           <div>
@@ -256,9 +269,7 @@ const Metrics = () => {
             <p className="text-2xl font-bold">{totalPromotions}</p>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div className="flex items-center space-x-4 bg-white shadow-md rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
           <Star className="w-8 h-8 text-orange-500" />
           <div>
@@ -266,34 +277,26 @@ const Metrics = () => {
             <p className="text-2xl font-bold">{totalReviews}</p>
           </div>
         </div>
-
-        <div className="flex items-center space-x-4 bg-white shadow-md rounded-lg p-4 transform transition-transform duration-300 hover:scale-105">
-          <Calendar className="w-8 h-8 text-green-500" />
-          <div>
-            <h3 className="text-lg font-semibold">Total Booking Offers</h3>
-            <p className="text-2xl font-bold">{totalBookingOffers}</p>
-          </div>
-        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-white shadow-md rounded-lg p-4">
           <h3 className="text-lg font-semibold mb-4">Metrics Pie Chart</h3>
-          <div className="h-48">
+          <div className="h-64">
             <Pie data={pieData} />
           </div>
         </div>
 
         <div className="bg-white shadow-md rounded-lg p-4">
           <h3 className="text-lg font-semibold mb-4">Metrics Bar Chart</h3>
-          <div className="h-48">
+          <div className="h-64">
             <Bar data={barData} />
           </div>
         </div>
 
         <div className="bg-white shadow-md rounded-lg p-4">
           <h3 className="text-lg font-semibold mb-4">Metrics Line Graph</h3>
-          <div className="h-48">
+          <div className="h-64">
             <Line data={lineData} />
           </div>
         </div>
@@ -303,3 +306,4 @@ const Metrics = () => {
 };
 
 export default Metrics;
+

@@ -5,6 +5,7 @@ import Blog from './Blog';
 import Contact from './Contact';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+
 const Home = () => {
     return (
       <>
@@ -14,7 +15,7 @@ const Home = () => {
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h1 className="mb-5 text-5xl font-bold">Online Car Booking</h1>
-            <p className="mb-5">"Need a ride? 🚗✨ Book in a snap with [Your Service Name]! Fast, easy, and always reliable. Your adventure awaits! 🌟🚀"</p>
+            <p className="mb-5">"Need a ride? 🚗✨ Book in a snap with [Anthony co lltc]! Fast, easy, and always reliable. Your adventure awaits! 🌟🚀"</p>
             <button className="btn btn-primary"><Link to="/login">Learn more</Link></button>
             {/* <li><Link to="/login">Register</Link></li> */}
           </div>

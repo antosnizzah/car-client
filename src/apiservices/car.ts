@@ -72,7 +72,7 @@ export type TBookingOffer = {
 // API Configuration
 export const carApi = createApi({
   reducerPath: 'carApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }),
   endpoints: (builder) => ({
     getCars: builder.query<TVehicle[], void>({
       query: () => '/vehicles',

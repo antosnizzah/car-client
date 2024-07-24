@@ -125,6 +125,7 @@ import { RootState } from '../store/usersAPI.reducer';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { vehiclesApi } from '../apiservices/vehicles';
+import NavigationButtons from './backbutton';
 
 export interface TBooking {
   booking_id: number;
@@ -192,6 +193,7 @@ const BookingForm = () => {
 
   return (
     <div className="p-6 bg-white shadow-md rounded-lg max-w-md mx-auto mt-10">
+      <NavigationButtons/>
       <h1 className="text-2xl font-bold mb-4">Book a Vehicle</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">

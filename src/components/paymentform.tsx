@@ -5,6 +5,7 @@ import { RootState } from '../store/usersAPI.reducer';
 import { useSelector } from 'react-redux';
 import { CreatePaymentRequest } from '../apiservices/payments';
 import { CreditCard,CreditCardIcon, AlertCircle, Loader } from 'lucide-react';
+import NavigationButtons from './backbutton';
 
 interface PaymentFormProps {
   amount: number;
@@ -56,6 +57,8 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ amount }) => {
   };
 
   return (
+    <>
+    <NavigationButtons/>
     <form onSubmit={handlePayment} className="space-y-4 p-4 border border-gray-300 rounded-lg shadow-lg bg-white">
       {error && (
         <div className="flex items-center text-red-500">
@@ -89,6 +92,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ amount }) => {
         {isLoading ? <Loader className="animate-spin mr-2" /> : 'Pay Now'}
       </button>
     </form>
+    </>
   );
 };
 

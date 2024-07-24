@@ -1,6 +1,7 @@
 // components/CarCard.tsx
 import { Link } from 'react-router-dom';
 import { Tcars, TVehicle, vehiclesApi } from '../apiservices/vehicles';
+import NavigationButtons from './backbutton';
 
 export interface Car {
   manufacturer: string;
@@ -28,6 +29,8 @@ const CarCard = () => {
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4'>
+      <NavigationButtons/>
+      {combined?.length === 0 && <p>No vehicles found</p>}
       {combined?.map(car =>
         <div className="p-4 border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300" key={car.vehicle_id}>
           <img src={car.image} alt={`${car.manufacturer} ${car.model}`} className="w-full h-48 object-cover rounded-md mb-4" />

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Tfleet, useFetchFleetsQuery, useRemoveFleetMutation, useUpdateFleetMutation } from '../apiservices/fleetmanagement'; // Adjust the path as necessary
+import NavigationButtons from '../components/backbutton';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Loader2, Trash2, Edit } from 'lucide-react';
 
 const FleetList: React.FC = () => {
   const { data: fleets, error, isLoading } = useFetchFleetsQuery();
@@ -17,11 +21,13 @@ const FleetList: React.FC = () => {
     insurance_status: '',
   });
 
-  if (isLoading) return <div className="text-center text-blue-500">Loading...</div>;
-  if (error) return <div className="text-center text-red-500">Error loading fleets</div>;
-
-  const handleDelete = (fleet_id: number) => {
-    removeFleet(fleet_id);
+  const handleDelete = async (fleet_id: number) => {
+    try {
+      await removeFleet(fleet_id);
+      toast.success('Fleet removed successfully');
+    } catch (err) {
+      toast.error('Failed to remove fleet');
+    }
   };
 
   const handleUpdateClick = (fleet: Tfleet) => {
@@ -40,34 +46,51 @@ const FleetList: React.FC = () => {
   const handleUpdateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedFleet) {
-      await updateFleet({ fleet_id: selectedFleet.fleet_id, data: formData });
-      setShowModal(false);
+      try {
+        await updateFleet({ fleet_id: selectedFleet.fleet_id, data: formData });
+        toast.success('Fleet updated successfully');
+        setShowModal(false);
+      } catch (err) {
+        toast.error('Failed to update fleet');
+      }
     }
   };
 
+  if (isLoading) return (
+    <div className="flex justify-center items-center min-h-screen bg-slate-600">
+      <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+    </div>
+  );
+
+  if (error) return <div className="text-center text-red-500">Error loading fleets</div>;
+
   return (
     <div className="container mx-auto p-4">
+      <NavigationButtons/>
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick={true} pauseOnHover={true} draggable={true} />
       <h1 className="text-2xl font-bold mb-4">Fleet List</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {fleets?.map((fleet) => (
-          <div key={fleet.vehicle_id} className="bg-white p-4 rounded-lg shadow-md">
+          <div key={fleet.vehicle_id} className="bg-white p-4 rounded-lg shadow-md flex flex-col items-start">
             <h2 className="text-xl font-semibold mb-2">Vehicle ID: {fleet.vehicle_id}</h2>
             <p>Status: {fleet.vehicle_status}</p>
             <p>Current Value: ${fleet.current_value}</p>
             <p>Maintenance Status: {fleet.maintainance_status}</p>
             <p>Insurance Status: {fleet.insurance_status}</p>
-            <button
-              className="mt-4 px-4 py-2 bg-red-500 text-white rounded"
-              onClick={() => handleDelete(fleet.fleet_id)}
-            >
-              Delete
-            </button>
-            <button
-              className="mt-4 ml-2 px-4 py-2 bg-blue-500 text-white rounded"
-              onClick={() => handleUpdateClick(fleet)}
-            >
-              Update
-            </button>
+            <div className="mt-4 flex space-x-2">
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded flex items-center hover:bg-red-600 transition-colors duration-200"
+                onClick={() => handleDelete(fleet.fleet_id)}
+              >
+                <Trash2 className="mr-2 h-5 w-5" /> Delete
+              </button>
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded flex items-center hover:bg-blue-600 transition-colors duration-200"
+                onClick={() => handleUpdateClick(fleet)}
+              >
+                <Edit className="mr-2 h-5 w-5" /> Update
+              </button>
+            </div>
           </div>
         ))}
       </div>

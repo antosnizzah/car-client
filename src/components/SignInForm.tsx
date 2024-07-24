@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRegisterMutation } from "../../src/apiservices/authApi";
 import Footer from "./Footer";
 import Header from "./Header";
+import NavigationButtons from "./backbutton";
 
 const SignInForm = () => {
   const [formData, setFormData] = useState({
@@ -47,6 +48,7 @@ const SignInForm = () => {
     <>
       <Header />
       <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
+        <NavigationButtons/>
         <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-6 text-center">User Registration</h2>
           <form onSubmit={handleSubmit} className="space-y-4">

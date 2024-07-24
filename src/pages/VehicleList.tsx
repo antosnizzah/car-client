@@ -8,6 +8,7 @@ import {
   TVehicle,
 } from '../apiservices/vehicles';
 import { toast, Toaster } from 'sonner';
+import NavigationButtons from '../components/backbutton';
 
 const VehicleList = () => {
   const { data: vehicleSpecsData, error, isLoading, isError } = useGetVehiclesSpecsQuery();
@@ -52,6 +53,7 @@ const VehicleList = () => {
 
   return (
     <>
+    <NavigationButtons/>
       <Toaster toastOptions={{ classNames: { error: 'bg-red-400', success: 'text-green-400', warning: 'text-yellow-400', info: 'bg-blue-400' } }} />
       <div className="overflow-x-auto text-base-content bg-gray-800 rounded-lg p-4">
         <h1 className="text-xl my-4 text-white">Vehicle Data</h1>
