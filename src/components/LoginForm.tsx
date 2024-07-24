@@ -44,6 +44,13 @@ const LoginForm = () => {
                         </svg>
                         <input type="password" className="grow form-input w-full" placeholder="Password" {...register('password', { required: true })}required />
                     </label>
+                    <div className="flex items-center justify-between mb-4">
+                        <label className="flex items-center text-white">
+                            <input type="checkbox" className="mr-2" />
+                            Remember Me
+                        </label>
+                        <a href="#" className="text-blue-500 hover:underline text-sm">Forgot Password?</a>
+                    </div>
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200" disabled={isLoading}>
                         Login
                     </button>

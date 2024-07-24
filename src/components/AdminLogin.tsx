@@ -3,10 +3,24 @@ import { useLoginMutation } from '../apiservices/authApi';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../apiservices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 interface LoginFormInputs {
     username: string;
     password: string;
+}
+
+interface AuthResponse {
+    user: {
+        username: string;
+        role: string;
+        // Add missing properties here
+        id: string;
+        email: string;
+        contact_phone: string;
+        email_verified: boolean;
+    };
+    token: string;
 }
 
 const AdminLogin = () => {
@@ -14,21 +28,43 @@ const AdminLogin = () => {
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
 
     const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
         try {
-            const userData = await login(data).unwrap();
-            dispatch(setCredentials(userData));
+            const userData = await login(data).unwrap() as AuthResponse;
+
+            if (userData.user.role !== 'admin') {
+                setError('You do not have the necessary permissions to access this page.');
+                return;
+            }
+
+            // Assuming AuthState requires all these fields:
+            const userState = {
+                user: {
+                    id: userData.user.id,
+                    username: userData.user.username,
+                    email: userData.user.email,
+                    contact_phone: userData.user.contact_phone,
+                    email_verified: userData.user.email_verified,
+                    role: userData.user.role,
+                },
+                token: userData.token,
+            };
+
+            dispatch(setCredentials(userState));
             navigate('/admin'); // Redirect to admin dashboard after successful login
         } catch (err) {
+            setError('Failed to log in.');
             console.error('Failed to log in: ', err);
         }
     };
 
     return (
-        <body className="flex items-center justify-center min-h-screen bg-slate-900">
+        <div className="flex items-center justify-center min-h-screen bg-slate-900">
             <div className="w-full max-w-sm bg-slate-600 p-6 rounded-lg shadow-md">
                 <h2 className="text-red-600 text-center text-2xl mb-6">Login</h2>
+                {error && <p className="text-red-600 text-center mb-4">{error}</p>}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label className="input input-bordered flex items-center gap-2 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 opacity-70">
@@ -42,19 +78,12 @@ const AdminLogin = () => {
                         </svg>
                         <input type="password" className="grow form-input w-full" placeholder="Password" {...register('password', { required: true })} required />
                     </label>
-                    <div className="flex items-center justify-between mb-4">
-                        <label className="flex items-center text-white">
-                            <input type="checkbox" className="mr-2" />
-                            Remember Me
-                        </label>
-                        <a href="#" className="text-blue-500 hover:underline text-sm">Forgot Password?</a>
-                    </div>
                     <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200" disabled={isLoading}>
                         Login
                     </button>
                 </form>
             </div>
-        </body>
+        </div>
     );
 };
 

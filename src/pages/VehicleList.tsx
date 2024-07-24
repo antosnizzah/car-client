@@ -8,7 +8,6 @@ import {
   TVehicle,
 } from '../apiservices/vehicles';
 import { toast, Toaster } from 'sonner';
-import VehicleCard from '../components/vehiclecard'; // Import the new component
 
 const VehicleList = () => {
   const { data: vehicleSpecsData, error, isLoading, isError } = useGetVehiclesSpecsQuery();
@@ -118,29 +117,63 @@ const VehicleList = () => {
           </button>
         </div>
 
-        <div>
+        <div className="overflow-x-auto">
           {isLoading ? (
             <p>Loading...</p>
           ) : isError ? (
             <p>Error: {error && 'data' in error ? (error.data as { message: string }).message : 'An error occurred'}</p>
           ) : (
-            vehicleSpecsData &&
-            vehicleSpecsData
-              .filter((vehicle: TVehicle) => {
-                if (searchTerm === '') return true;
-                return (
-                  vehicle.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                  vehicle.model.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-              })
-              .map((vehicle: TVehicle) => (
-                <VehicleCard
-                  key={vehicle.vehicle_id}
-                  vehicle={vehicle}
-                  onEdit={() => setEditingVehicle(vehicle)}
-                  onDelete={() => handleDelete(vehicle.vehicle_id)}
-                />
-              ))
+            vehicleSpecsData && (
+              <table className="min-w-full divide-y divide-gray-700">
+                <thead>
+                  <tr className="bg-gray-700 text-white">
+                    <th className="px-6 py-3 text-left text-sm font-medium">Manufacturer</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Model</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Year</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Engine Capacity</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Fuel Type</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Transmission</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Color</th>
+                    <th className="px-6 py-3 text-left text-sm font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-gray-800 divide-y divide-gray-700">
+                  {vehicleSpecsData
+                    .filter((vehicle: TVehicle) => {
+                      if (searchTerm === '') return true;
+                      return (
+                        vehicle.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        vehicle.model.toLowerCase().includes(searchTerm.toLowerCase())
+                      );
+                    })
+                    .map((vehicle: TVehicle) => (
+                      <tr key={vehicle.vehicle_id} className="hover:bg-gray-600">
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.manufacturer}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.model}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.year}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.engine_capacity}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.fuel_type}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.transmission}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300">{vehicle.color}</td>
+                        <td className="px-6 py-4 text-sm text-gray-300 flex gap-2">
+                          <button
+                            className="btn btn-secondary"
+                            onClick={() => setEditingVehicle(vehicle)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => handleDelete(vehicle.vehicle_id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )
           )}
         </div>
 

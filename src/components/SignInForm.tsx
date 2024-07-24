@@ -58,16 +58,10 @@ const SignInForm = () => {
                 <input type="text" name="contact_phone" placeholder="Contact Phone" className="input input-bordered" value={formData.contact_phone} onChange={handleChange} />
               </div>
               <div className="form-control">
-                <input type="text" name="confirm_contact_phone" placeholder="Confirm Contact Phone" className="input input-bordered" value={formData.confirm_contact_phone} onChange={handleChange} />
-              </div>
-              <div className="form-control">
                 <input type="email" name="email" placeholder="Email" className="input input-bordered" value={formData.email} onChange={handleChange} />
               </div>
               <div className="form-control">
                 <input type="password" name="password" placeholder="Password" className="input input-bordered" value={formData.password} onChange={handleChange} />
-              </div>
-              <div className="form-control">
-                <input type="password" name="confirm_password" placeholder="Confirm Password" className="input input-bordered" value={formData.confirm_password} onChange={handleChange} />
               </div>
               <div className="form-control">
                 <label className="label">Gender</label>

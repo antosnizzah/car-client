@@ -8,7 +8,7 @@ interface Car {
   bookingQuantity: number;
 }
 
-interface BookingState {
+export interface BookingState {
   bookedCars: Car[];
   totalAmount: number;
   isLoading: boolean;

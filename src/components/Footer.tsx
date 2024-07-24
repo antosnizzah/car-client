@@ -38,6 +38,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <p>© 2024 Car Rental</p>
     </footer>
   );
 }

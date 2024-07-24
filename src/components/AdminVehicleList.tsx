@@ -1,15 +1,3 @@
-// const VehicleList = () => {
-//   const [searchTerm, setSearchTerm] = useState<string>('');
-//   const vehicles: Vehicle[] = [
-//     { id: 0, make: 'Toyota', model: 'Camry', year: 2010 },
-//     { id: 18, make: 'Honda', model: 'Civic', year: 2019 },
-//     { id: 16, make: 'Ford', model: 'Mustang', year: 2008 },
-//   ];
-
-//   const filteredVehicles = vehicles.filter(vehicle =>
-//     vehicle.make.toLowerCase().includes(searchTerm.toLowerCase())
-//   );
-
 
 
 

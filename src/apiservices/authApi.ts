@@ -16,7 +16,7 @@ export interface AuthResponse {
 
 export const authApi = createApi({
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }),
     endpoints: (builder) => ({
         register: builder.mutation<AuthResponse, User>({
             query: (user) => ({

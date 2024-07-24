@@ -10,48 +10,19 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserProfile from './components/UserProfile';
 import VehicleList from './pages/VehicleList';
 import BookingList from './components/BookingList';
-import PaymentList from './components/PaymentList';
 import AdminLogin from './components/AdminLogin';
 import Services from './pages/services';
-import AvailableCars from './components/CarAvailability';
-import CarList from '../src/components/carlist';
 import UserTable from './components/UserList';
-
-
-
-// function App() {
-//   return (
-//     <Router>
-//       <Header />
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//          <Route path="/about" element={<About />} />
-//         {/* <Route path="/history" element={<History />} /> */}
-//         <Route path="/blog" element={<Blog />} />
-//         <Route path="/contact" element={<Contact />} /> 
-//         <Route path="/register" element={<SignInForm />} />
-//         <Route path="/login" element={<LoginForm />} />
-//         <Route path="/dashboard" element={<UserDashboard />} />
-//         <Route path="/admin" element={<AdminDashboard />} />
-//         <Route path="/profile" element={<UserProfile />} />
-//         <Route path="/vehicles" element={<VehicleList />} />
-//         <Route path="/bookings" element={<BookingList />} />
-//         <Route path="/payments" element={<PaymentList />} />
-//         <Route path="/admin-login" element={<AdminLogin />} />
-//         <Route path="/services" element={<Services />} />
-//         <Route path="/booking" element={<Booking />} />
-//         <Route path="/availablecars" element={<AvailableCars />} />
-//       </Routes>
-//       <Footer />
-//     </Router>
-    
-//   );
-// }
-
-// export default App;
-
+import FleetList from './pages/fleetmanagement';
 import { createBrowserRouter,RouterProvider} from "react-router-dom";
 import { Toaster } from 'sonner';
+import Cardetails from './pages/cardetails';
+import CarCard from './components/carcard';
+import BookingForm from './components/BookingForm';
+import Metrics from './pages/metrics';
+import BookingPage from './pages/payment';
+import PaymentForm from './components/paymentform';
+import CohereChat from './components/open';
 
 
 
@@ -61,6 +32,31 @@ const App = () => {
     {
       path: '/',
       element: <Home />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'payments/:bookingId',
+      element: <PaymentForm amount={0} bookingId={0} />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'chatbox',
+      element: <CohereChat/>,
+      errorElement: <Error />,
+    },
+    {
+      path: 'payments/:bookingId', // Added the bookingId parameter
+      element: <BookingPage />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'fleet-management',
+      element: <FleetList />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'metrics',
+      element: <Metrics/>,
       errorElement: <Error />,
     },
     {
@@ -102,12 +98,12 @@ const App = () => {
       element: <VehicleList />,
     },
     {
-      path: 'bookings',
-      element: <BookingList />,
+      path: '/vehicle/:id',
+      element: <Cardetails />,
     },
     {
-      path: 'payments',
-      element: <PaymentList />,
+      path: 'bookings',
+      element: <BookingList />,
     },
     {
       path: 'admin-login',
@@ -123,12 +119,13 @@ const App = () => {
       errorElement: <Error />,
     },
     {
-      path: 'availablecars',
-      element: <AvailableCars />,
+      path: 'carlist',
+      element: <CarCard />,
+      errorElement: <Error />,
     },
     {
-      path: 'carlist',
-      element: <CarList />,
+      path: '/vehicle/:id/booking-details',
+      element: <BookingForm />,
       errorElement: <Error />,
     },
   ]);

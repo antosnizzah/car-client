@@ -14,8 +14,10 @@ export interface Booking {
   location_id: number;
   booking_date: string;
   return_date: string;
-  total_cost: string;
+  total_cost: number;
   status: string;
+  user_id: number;
+  vehicleSpec_id: number;
   payment_id: string;
   user: {
     full_name: string;
@@ -32,15 +34,27 @@ export interface Booking {
       year: number;
       engine_capacity: number;
       fuel_type: string;
+      image: string;
     };
   };
 }
+export interface Tlocation {
+  location_id: number;
+  location_name: string;
+  address: string;
+  contact_phone: number;
+  email: string;
+
+}
 export const bookingApi = createApi({
   reducerPath: 'bookingApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000/' }), // Replace with your backend URL
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://car-api-80da.onrender.com/' }), // Replace with your backend URL
   endpoints: (builder) => ({
-    fetchBookings: builder.query<Booking, void>({
+    fetchBookings: builder.query<Booking[], void>({
       query: () => '/bookings',
+    }),
+    fetchLocation: builder.query<Tlocation[], void>({
+      query: () => '/locationbranches',
     }),
     bookCar: builder.mutation<Booking, Partial<Booking>>({
       query: (booking) => ({
@@ -49,16 +63,17 @@ export const bookingApi = createApi({
         body: booking,
       }),
     }),
-    removeCarFromBooking: builder.mutation<any, { carId: string }>({
+    removeCarFromBooking: builder.mutation<Car, { carId: string }>({
       query: ({ carId }) => ({
         url: `/bookings/${carId}`,
         method: 'DELETE',
       }),
     }),
-    addCarToBooking: builder.mutation<any, { carId: string }>({
-      query: ({ carId }) => ({
-        url: `/bookings/${carId}`,
+    addCarToBooking: builder.mutation<Booking[], Partial<Booking>>({
+      query: (data) => ({
+        url: `/bookings`,
         method: 'POST',
+        body:data,
       }),
     }),
   }),

@@ -1,17 +1,31 @@
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface AuthState {
-    token: string | null;
-    user: {
-        username: string;
-        role: string;
-    } | null;
+// Define the User type
+export interface User {
+    id: string;
+    username: string;
+    email: string;
+    contact_phone: string;
+    email_verified: boolean;
+    role: string;
 }
 
-export const initialState: AuthState = {
-    token: null,
+// Define the AuthResponse type
+export interface AuthResponse {
+    user: User;
+    token: string;
+}
+
+// Define the AuthState type
+export interface AuthState {
+    user: User | null;
+    token: string | null;
+}
+
+// Initial state
+const initialState: AuthState = {
     user: null,
+    token: null,
 };
 
 const authSlice = createSlice({
@@ -24,14 +38,27 @@ const authSlice = createSlice({
         ) => {
             state.token = token;
             state.user = user;
+            localStorage.setItem('token', token || '');
+            localStorage.setItem('user', JSON.stringify(user)); // Store user data
+        },
+        updateUserProfile: (
+            state,
+            { payload: user }: PayloadAction<Partial<User>>
+        ) => {
+            if (state.user) {
+                state.user = { ...state.user, ...user };
+                localStorage.setItem('user', JSON.stringify(state.user)); // Update user data
+            }
         },
         logout: (state) => {
             state.token = null;
             state.user = null;
+            localStorage.removeItem('token');
+            localStorage.removeItem('user'); // Clear user data
         },
     },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setCredentials, updateUserProfile, logout } = authSlice.actions;
 
 export default authSlice.reducer;

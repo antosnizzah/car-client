@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export interface TUser {
-  user_id: number;
+  id: number;
   full_name: string;
   email: string;
   contact_phone: string;
@@ -11,10 +11,19 @@ export interface TUser {
 export interface DeleteResponse {
   msg: string;
 }
+export interface UserDetails {
+  email: string;
+  contact_phone: number;
+  email_verified: boolean;
+  address: string;
+  user_id:number;
+  full_name: string;
+  profile_image?: string;
+}
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: ' http://localhost:8000/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: ' https://car-api-80da.onrender.com/' }),
   endpoints: (builder) => ({
     getUsers: builder.query<TUser[], void>({
       query: () => 'users',
@@ -39,7 +48,17 @@ export const usersApi = createApi({
         method: 'DELETE',
       }),
     }),
+    getUserDetails: builder.query<UserDetails, number>({
+      query: (id) => `users/${id}`, 
+  }),
+  uploadProfileImage: builder.mutation<{ imageUrl: string }, FormData>({
+    query: (formData) => ({
+      url: 'users',
+      method: 'POST',
+      body: formData,
+    }),
+  }),
   }),
 });
 
-export const { useGetUsersQuery, useAddUserMutation, useUpdateUserMutation, useDeleteUserMutation }= usersApi;
+export const { useGetUsersQuery, useAddUserMutation,useUploadProfileImageMutation,useGetUserDetailsQuery, useUpdateUserMutation, useDeleteUserMutation }= usersApi;
