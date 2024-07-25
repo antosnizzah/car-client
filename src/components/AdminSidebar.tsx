@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { HomeIcon, CarIcon, LogOut, User, Bitcoin } from 'lucide-react';
+import { HomeIcon, CarIcon, LogOut, User, Bitcoin, Ticket, HelpCircle } from 'lucide-react';
 
 const AdminSidebar = () => {
   return (
@@ -9,25 +9,25 @@ const AdminSidebar = () => {
       </div>
       <nav className="mt-10 space-y-2 px-4">
         <Link to="/metrics" className="flex items-center py-2 px-4 bg-gray-700 text-white rounded-md hover:bg-gray-600">
-          Dashboard <HomeIcon/>
+        <HomeIcon/> Dashboard
         </Link>
         <Link to="/users" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Users <User/>
+        <User/> Manage Users 
         </Link>
         <Link to="/vehicles" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Vehicles <CarIcon/>
+        <CarIcon/> Manage Vehicles 
         </Link>
         <Link to="/fleet-management" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Fleet
+         <Ticket/> Manage Fleet
         </Link>
         <Link to="/payments" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Payments <Bitcoin/>
+        <Bitcoin/> Manage Payments
         </Link>
         <Link to="/customer-support" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Customer Support
+         <HelpCircle/> Customer Support
         </Link>
         <Link to="/login" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          logout <LogOut/>
+        <LogOut/> logout 
         </Link>
       </nav>
     </div>
