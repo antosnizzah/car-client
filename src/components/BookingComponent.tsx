@@ -53,11 +53,18 @@ const BookingComponent: React.FC<BookingProps> = ({
         },
         body: JSON.stringify({ bookingId, amount }),
       });
-
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error response from server:', errorData);
+        throw new Error(errorData.message || 'Server error');
+      }
+  
       const { checkoutUrl } = await response.json();
       window.location.href = checkoutUrl;
     } catch (error) {
       console.error('Error creating checkout session:', error);
+      toast.error('Failed to create checkout session. Please try again later.');
     }
   };
 
