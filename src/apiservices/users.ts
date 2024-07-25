@@ -7,6 +7,7 @@ export interface TUser {
   contact_phone: string;
   address: string;
   user_id:number;
+  is_active: boolean;
 }
 
 export interface DeleteResponse {
