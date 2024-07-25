@@ -64,7 +64,7 @@ const BookingComponent: React.FC<BookingProps> = ({
       window.location.href = checkoutUrl;
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      toast.error('Failed to create checkout session. Please try again later.');
+      toast.error(`Failed to create checkout session: ${(error as Error).message}`);
     }
   };
 
