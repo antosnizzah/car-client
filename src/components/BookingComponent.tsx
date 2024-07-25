@@ -42,8 +42,8 @@ const BookingComponent: React.FC<BookingProps> = ({
     }
   }, [booking.error]);
 
-  const makePayment = async (bookingId: number, amount: number) => {
-    console.log('Booking ID:', bookingId);
+  const makePayment = async (booking_id: number, amount: number) => {
+    console.log('Booking ID:', booking_id);
     console.log('Amount:', amount);
     try {
       const response = await fetch('https://car-api-80da.onrender.com/checkout-session', {
@@ -51,7 +51,7 @@ const BookingComponent: React.FC<BookingProps> = ({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ bookingId, amount }),
+        body: JSON.stringify({ booking_id, amount }), // Ensure the keys match what the backend expects
       });
   
       if (!response.ok) {
@@ -64,7 +64,8 @@ const BookingComponent: React.FC<BookingProps> = ({
       window.location.href = checkoutUrl;
     } catch (error) {
       console.error('Error creating checkout session:', error);
-      toast.error(`Failed to create checkout session: ${(error as Error).message}`);
+      const errorMessage = (error as Error).message;
+      toast.error(`Failed to create checkout session: ${errorMessage}`);
     }
   };
 
