@@ -44,8 +44,6 @@ const BookingContainer = () => {
     }
   };
 
- 
-
   // Type guard to check if the error is of type FetchBaseQueryError
   const isFetchBaseQueryError = (error: unknown): error is { status: number; data: unknown } => {
     return typeof error === 'object' && error !== null && 'status' in error;
@@ -55,7 +53,6 @@ const BookingContainer = () => {
   const isSerializedError = (error: unknown): error is { message: string } => {
     return typeof error === 'object' && error !== null && 'message' in error;
   };
- 
 
   return (
     <div className="p-4 bg-gray-900 min-h-screen">
@@ -100,6 +97,5 @@ const BookingContainer = () => {
     </div>
   );
 };
-
 
 export default BookingContainer;
