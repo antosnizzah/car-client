@@ -148,7 +148,7 @@ const Metrics = () => {
   const { data: maintenanceRecords, isLoading: loadingMaintenance, isError: errorMaintenance } = useGetMaintenanceRecordsQuery();
   const { data: promotions, isLoading: loadingPromotions, isError: errorPromotions } = useGetPromotionsQuery();
   const { data: reviews, isLoading: loadingReviews, isError: errorReviews } = useGetReviewsRatingQuery();
-  const { data:  loadingBookingOffers, isError: errorBookingOffers } = useGetBookingOffersQuery();
+  const { data: bookingOffers, isLoading: loadingBookingOffers, isError: errorBookingOffers } = useGetBookingOffersQuery();
 
   React.useEffect(() => {
     if (errorCars || errorBookings || errorFleets || errorUsers || errorLocations || errorMaintenance || errorPromotions || errorReviews || errorBookingOffers) {
@@ -163,6 +163,17 @@ const Metrics = () => {
       </div>
     );
   }
+
+  // Debugging data fetching
+  console.log('Cars:', cars);
+  console.log('Bookings:', bookings);
+  console.log('Fleets:', fleets);
+  console.log('Users:', users);
+  console.log('LocationsBranches:', locationsBranches);
+  console.log('MaintenanceRecords:', maintenanceRecords);
+  console.log('Promotions:', promotions);
+  console.log('Reviews:', reviews);
+  console.log('BookingOffers:', bookingOffers);
 
   const totalCars = cars?.length || 0;
   const totalBookings = bookings?.length || 0;
