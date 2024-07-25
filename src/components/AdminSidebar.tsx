@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { HomeIcon, CarIcon, LogOut, User, Bitcoin } from 'lucide-react';
 
 const AdminSidebar = () => {
   return (
@@ -8,22 +9,25 @@ const AdminSidebar = () => {
       </div>
       <nav className="mt-10 space-y-2 px-4">
         <Link to="/metrics" className="flex items-center py-2 px-4 bg-gray-700 text-white rounded-md hover:bg-gray-600">
-          Dashboard
+          Dashboard <HomeIcon/>
         </Link>
         <Link to="/users" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Users
+          Manage Users <User/>
         </Link>
         <Link to="/vehicles" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Vehicles
+          Manage Vehicles <CarIcon/>
         </Link>
         <Link to="/fleet-management" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
           Manage Fleet
         </Link>
         <Link to="/payments" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
-          Manage Payments
+          Manage Payments <Bitcoin/>
         </Link>
         <Link to="/customer-support" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
           Customer Support
+        </Link>
+        <Link to="/login" className="flex items-center py-2 px-4 text-white hover:bg-gray-700 rounded-md">
+          logout <LogOut/>
         </Link>
       </nav>
     </div>
