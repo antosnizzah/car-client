@@ -24,7 +24,7 @@ const PaymentSuccess: React.FC = () => {
         <p className="text-gray-700 mb-4">
           Thank you for processing your most recent payment.
         </p>
-        <Link to ='/' className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300">Your Dashboard</Link>
+        <Link to ='/user-dashboard' className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-300">Your Dashboard</Link>
       </div>
     </div>
   );

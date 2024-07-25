@@ -36,7 +36,7 @@ const App = () => {
       errorElement: <Error />,
     },
     {
-      path: '/paymentsucess',
+      path: '/paymentsuccess',
       element: <PaymentSuccess />,
       errorElement: <Error />,
     },
