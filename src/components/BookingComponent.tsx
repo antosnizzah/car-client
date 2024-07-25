@@ -43,7 +43,7 @@ const BookingComponent: React.FC<BookingProps> = ({
   }, [booking.error]);
 
   const makePayment = async (booking_id: number, amount: number) => {
-    console.log('Booking ID:', booking_id);
+    console.log('booking_id:', booking_id);
     console.log('Amount:', amount);
     try {
       const response = await fetch('https://car-api-80da.onrender.com/checkout-session', {

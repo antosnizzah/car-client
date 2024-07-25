@@ -23,6 +23,7 @@ import Metrics from './pages/metrics';
 import BookingPage from './pages/payment';
 import PaymentForm from './components/paymentform';
 import CohereChat from './components/open';
+import PaymentSuccess from './pages/paymentsucess';
 
 
 
@@ -32,6 +33,11 @@ const App = () => {
     {
       path: '/',
       element: <Home />,
+      errorElement: <Error />,
+    },
+    {
+      path: '/paymentsucess',
+      element: <PaymentSuccess />,
       errorElement: <Error />,
     },
     {
