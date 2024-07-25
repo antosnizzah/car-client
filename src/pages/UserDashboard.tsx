@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/usersAPI.reducer';
 import Sidebar from '../components/Sidebar';
-import { HomeIcon, CarIcon, LogOut } from 'lucide-react';
+import { HomeIcon, CarIcon, LogOut, User, Bitcoin } from 'lucide-react';
 import Metrics from './usersmetrics';
 
 const UserDashboard = () => {
@@ -13,8 +13,8 @@ const UserDashboard = () => {
     { to: '/carlist', label: 'Cars', icon: <CarIcon className="w-6 h-6" /> },
     { to: '/bookings', label: 'My Bookings', icon: <CarIcon className="w-6 h-6" /> },
     { to: '/login', label: 'Logout', icon: <LogOut className="w-6 h-6" /> },
-    { to: '/profile', label: 'Profile', icon: <LogOut className="w-6 h-6" /> },
-    { to: '/payments', label: 'my payments', icon: <LogOut className="w-6 h-6" /> },
+    { to: '/profile', label: 'Profile', icon: <User className="w-6 h-6" /> },
+    { to: '/payments', label: 'my payments', icon: <Bitcoin className="w-6 h-6" /> },
   ]; 
 
   return (

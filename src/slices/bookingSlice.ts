@@ -17,7 +17,7 @@ export interface BookingState {
 }
 
 const initialState: BookingState = {
-  booking_id: 0,  // replace with actual booking id from server response
+  booking_id: 57,  // replace with actual booking id from server response
   bookedCars: [],
   totalAmount: 0,
   isLoading: false,
