@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { CohereClient } from 'cohere-ai';
-import {  Send, Trash2, XCircle, Bot } from 'lucide-react';
+import { Send, Trash2, XCircle, Bot } from 'lucide-react';
 
 const cohere = new CohereClient({
   token: '5MzUb3cZMJoesmbmUdR9wlTPjAURQWuwykLogjbR', // Your trial API key
@@ -11,7 +11,7 @@ type Message = {
   message: string;
 };
 
-const CohereChat: React.FC = () => {
+const CohereChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [, setResponse] = useState<string | null>(null);
@@ -77,7 +77,7 @@ const CohereChat: React.FC = () => {
         <Bot className="h-6 w-6" />
       </button>
       {isOpen && (
-        <div className="fixed bottom-16 right-5 w-1/4 max-h-3/4 bg-white border border-gray-300 rounded-lg shadow-lg flex flex-col overflow-hidden">
+        <div className="fixed bottom-16 right-5 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 max-h-3/4 bg-white border border-gray-300 rounded-lg shadow-lg flex flex-col overflow-hidden">
           <div className="bg-purple-500 text-white p-3 text-center font-bold flex justify-between items-center">
             <span>Chatbot</span>
             <div className="flex gap-2">
@@ -89,7 +89,7 @@ const CohereChat: React.FC = () => {
                 <Trash2 className="h-5 w-5" />
               </button>
               <button
-               title="Toggle Chat"
+                title="Toggle Chat"
                 onClick={toggleChat}
                 className="bg-gray-500 text-white rounded-full p-1 hover:bg-gray-600 transition-transform transform hover:scale-105"
               >
@@ -125,7 +125,7 @@ const CohereChat: React.FC = () => {
               className="flex-1 border border-gray-300 rounded-full p-2 mr-2"
             />
             <button
-             title="Toggle Chat"
+              title="Toggle Chat"
               onClick={handleSendMessage}
               className="bg-yellow-500 text-white rounded-full p-2 hover:bg-yellow-600 transition-transform transform hover:scale-105"
               disabled={loading}
